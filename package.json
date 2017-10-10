@@ -12,6 +12,7 @@
   "author": "Bobey",
   "license": "GPL-3.0",
   "dependencies": {
+    "collections": "^5.0.7",
     "mocha": "^4.0.1"
   }
 }

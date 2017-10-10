@@ -1,16 +1,17 @@
 const Mission = require('../metier/mission');
 
+//const Map = require("collections/map");
+
 const assert = require('assert');
 
     describe("ajouterHeures tests", () =>{
         beforeEach(function () {
-            cleanUp();
             m1 = new Mission("M1",10);
         });
         it("ajout>0 && <10", () => {
             date = new Date(1998,1,8);
             m1.ajouterHeure(date,8);
-            assert.equal(m1.releveHoraire,8);
+            assert.equal(m1.releveHoraire.get(date),8);
         });
         it("ajout=0",() =>{
             date = new Date(1998,1,8);
@@ -37,13 +38,12 @@ const assert = require('assert');
 
     describe("nbHeuresEffectuees tests", () =>{
         beforeEach(function(){
-            cleanUp();
             m1 = new Mission("M1",10);
          });
         it("nbH>0", () =>{
             date = new Date(1998,1,8);
             m1.ajouterHeure(date,9);
-            assert.equal(m1.nbHeuresEffectuees(1),9,);
+            assert.equal(m1.nbHeuresEffectuees(1),9);
          });
         it("nbH=0",() =>{
             date = new Date(1998,1,8);
@@ -74,5 +74,28 @@ const assert = require('assert');
             date = new Date(1998,1,8);
             m1.ajouterHeure(date,12);
             assert.equal(m1.nbHeuresEffectuees(1),10);
+        });
+
+        describe("diffH", () => {
+            beforeEach(function () {
+                m1 = new Mission("M1", 10);
+            });
+            it("diffH>0", () => {
+                date = new Date(1998, 1, 8);
+                date1 = new Date(1998,1,9);
+                m1.ajouterHeure(date, 9);
+                m1.ajouterHeure(date1,9);
+                assert.equal(m1.differentielH(), 8);
+            });
+            it("diffH=0", () => {
+                date = new Date(1998, 1, 8);
+                m1.ajouterHeure(date, 0);
+                assert.equal(m1.differentielH(), 0);
+            });
+            it("diffH<0", () => {
+                date = new Date(1998, 1, 8);
+                m1.ajouterHeure(date, 4);
+                assert.equal(m1.differentielH(),0);
+            });
         });
 });
